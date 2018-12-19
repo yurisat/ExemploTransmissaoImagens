@@ -12,6 +12,11 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
+/*
+ * Thread do cliente que recebe a imagem do server de volta e é responsável por 
+ * salvar a imagem recebida
+ */
+
 public class ImageSaveClient implements Runnable {
 
     private Socket sock;
@@ -24,12 +29,15 @@ public class ImageSaveClient implements Runnable {
     @Override
     public void run() {
         try {
-
+        	
+        	
             DataInputStream input = new DataInputStream(sock.getInputStream());
             long stream_size = input.readLong();
             
+            //nome da imagem
             String nome;
             
+            //enquanto o tamanho da stream for maior que 0, continue a receber o bytes
             while (stream_size != 0) {
 
                 System.out.println("Esperando receber imagem de " + stream_size + " bytes");
